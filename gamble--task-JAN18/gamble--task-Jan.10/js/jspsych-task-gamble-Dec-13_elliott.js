@@ -163,7 +163,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 			html +=`
 			<div class='parent'>
 				<div class='juzuo'>
-						<img src="./img/bottom.png" alt="sometext" />
+						<img src="./img/full.png" alt="sometext" />
 						 <div class="leftrighttext">${L1}</div>
 						 <br>
 						 <br>
@@ -171,7 +171,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 						 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
 						 </div>
 				 
-				<div class='juyou'> <img src="./img/full.png" alt="sometext" />
+				<div class='juyou'> <img src="./img/top.png" alt="sometext" />
 						<div class="leftrighttext">${R1}</div>
 						<br>
 						<br>
@@ -188,7 +188,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 				html +=`
 				<div class='parent'>
 					<div class='juzuo'>
-							<img src="./img/full.png" alt="sometext" />
+							<img src="./img/bottom.png" alt="sometext" />
 								 <div class="leftrighttext">${L1}</div>
 							 <br>
 							 <br>
@@ -196,7 +196,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 							 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
 							 </div>
 				 
-					<div class='juyou'> <img src="./img/top.png" alt="sometext" />
+					<div class='juyou'> <img src="./img/full.png" alt="sometext" />
 								<div class="leftrighttext">${R1}</div>
 								<br>
 								<br>
@@ -344,6 +344,7 @@ jsPsych.plugins["task-gamble"] = (function() {
         "A2": trial.A2,
         "B1": trial.B1,
         "left": trial.left,
+        "top": trial.top,
         "button": response.key,
         "choice": response.choice,
         "rt": response.rt,
