@@ -38,6 +38,16 @@ jsPsych.plugins["task-gamble"] = (function() {
         default: true,
         description: 'Gamble A on left side'
       },
+      Domain: {
+        type: jsPsych.plugins.parameterType.INT,
+        pretty_name: 'Domain',
+        default: true,
+        description: 'type of gamble: gain&loss vs 0, or gain&0 vs'
+      },
+
+
+
+      
     }
   }
 
@@ -56,18 +66,42 @@ jsPsych.plugins["task-gamble"] = (function() {
         accept: null,
     };
 
-    // If Gamble A on left side.
-    if (trial.left) {
+    // define left and top condition, 1 is left green top, 2 for left green bottom, 3 for non-left green top, 4 for non-left, green bottom
+    var a = trial.left;
+    var b = trial.top;
+    let c;
+    if (a & b) {c = 1} else if (!a & b ) {c = 2} else if (a & !b) {c =3} else{c=4}
 
-			// Define left side gamble.
-			var L1 = ` <p>Win ${trial.A1} &nbsp;&nbsp;&nbsp Lose ${trial.A2}  </p>`;
-			var R1 = ` <p>Win ${trial.B1}   </p>`;
-
-    } else {
-      var L1 = ` <p>Win ${trial.B1}   </p>`;
-      var R1 = ` <p>Win ${trial.A1} &nbsp;&nbsp;&nbsp  Lose ${trial.A2}  </p>`;
-
+    switch(c) {
+      case 1:
+        var L1 = ` <p>Win ${trial.A1} </p>
+        <br/><br/>
+        <p> Lose ${trial.A2}  </p>`;
+        var R1 = ` <p>Win ${trial.B1}   </p>`;
+        break;
+      case 2:
+        var R1 = ` <p>Win ${trial.A1} </p>
+        <br/><br/>
+        <p> Lose ${trial.A2}  </p>`;
+        var L1 = ` <p>Win ${trial.B1}   </p>`;
+        break;
+      case 3:
+        var L1 = ` <p> Lose ${trial.A2}  </p> 
+        <br/><br/>
+        <p>Win ${trial.A1} </p>        `;
+        var R1 = ` <p>Win ${trial.B1}   </p>`;
+        break;
+      case 4:
+        var R1 = `   <p> Lose ${trial.A2}  </p> 
+        <br/><br/>
+        <p>Win ${trial.A1} </p>        `;
+        var L1 = ` <p>Win ${trial.B1}   </p>`;
+        break;  
     }
+
+
+
+
 
     var winRoll = jsPsych.randomization.sampleWithoutReplacement([true,false], 1)[0];
     //feedback when choosing to gamble
@@ -83,8 +117,8 @@ jsPsych.plugins["task-gamble"] = (function() {
     var FeNnumeric = trial.B1;
 
 
-console.log('plugin 1')
-console.log(trial.A1)
+  console.log('plugin 1')
+  console.log(trial.A1)
 
 
     // random picture position //
@@ -92,10 +126,9 @@ console.log(trial.A1)
 		jsPsych.pluginAPI.setTimeout(function() {
 
 			var html = '';
-
-			if (trial.left) {
-
-	
+      switch(c) {
+        case 1: 
+        //mixed at left, use topgreen pic
 			// Add header
 			html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
 
@@ -104,7 +137,7 @@ console.log(trial.A1)
 			html +=`
 			<div class='parent'>
 				<div class='juzuo'>
-						<img src="./img/half.png" alt="sometext" />
+						<img src="./img/top.png" alt="sometext" />
 						 <div class="leftrighttext">${L1}</div>
 						 <br>
 						 <br>
@@ -112,23 +145,50 @@ console.log(trial.A1)
 						 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
 						 </div>
 				 
-				<div class='juyou'> <img src="./img/win.png" alt="sometext" />
+				<div class='juyou'> <img src="./img/full.png" alt="sometext" />
 						<div class="leftrighttext">${R1}</div>
 						<br>
 						<br>
 						<br>
 						<div class="leftrighttextBottom">Press "K" to select this gamble</div>
 						</div>
-			</div>
-			`
-			}else {
+			</div>`
+          break;            
+        
+        
+        case 2:
+          // mixed at left, bottom green pic
+			html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
+			html += '<div id="jspsych-html-button-response-stimulus"></div>';
+			html +=`
+			<div class='parent'>
+				<div class='juzuo'>
+						<img src="./img/bottom.png" alt="sometext" />
+						 <div class="leftrighttext">${L1}</div>
+						 <br>
+						 <br>
+						 <br>
+						 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
+						 </div>
+				 
+				<div class='juyou'> <img src="./img/full.png" alt="sometext" />
+						<div class="leftrighttext">${R1}</div>
+						<br>
+						<br>
+						<br>
+						<div class="leftrighttextBottom">Press "K" to select this gamble</div>
+						</div>
+			</div>`
+         break;
 
+         case 3:
+        //mixed at right, top green pic
 				html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
 				html += '<div id="jspsych-html-button-response-stimulus"></div>';
 				html +=`
 				<div class='parent'>
 					<div class='juzuo'>
-							<img src="./img/win.png" alt="sometext" />
+							<img src="./img/full.png" alt="sometext" />
 								 <div class="leftrighttext">${L1}</div>
 							 <br>
 							 <br>
@@ -136,22 +196,47 @@ console.log(trial.A1)
 							 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
 							 </div>
 				 
-					<div class='juyou'> <img src="./img/half.png" alt="sometext" />
+					<div class='juyou'> <img src="./img/top.png" alt="sometext" />
 								<div class="leftrighttext">${R1}</div>
 								<br>
 								<br>
 								<br>
 								<div class="leftrighttextBottom">Press "K" to select this gamble</div>
 							 </div>
-				</div>
-				`
-			}
+				</div>`
+          break;
 
+          case 4:       
+         //mixed at right, bottom green pic
+				html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
+				html += '<div id="jspsych-html-button-response-stimulus"></div>';
+				html +=`
+				<div class='parent'>
+					<div class='juzuo'>
+							<img src="./img/full.png" alt="sometext" />
+								 <div class="leftrighttext">${L1}</div>
+							 <br>
+							 <br>
+							 <br>
+							 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
+							 </div>
+				 
+					<div class='juyou'> <img src="./img/bottom.png" alt="sometext" />
+								<div class="leftrighttext">${R1}</div>
+								<br>
+								<br>
+								<br>
+								<div class="leftrighttextBottom">Press "K" to select this gamble</div>
+							 </div>
+				</div>`
+
+          break;  
+      }
 			// End HTML
 			html += '</div>';
 
-console.log('settimeout')
-console.log(trial.A1)
+  console.log('settimeout')
+  console.log(trial.A1)
 
 			display_state(html);
 
@@ -161,8 +246,8 @@ console.log(trial.A1)
     // Display HTML
     function display_state(html){
 
-console.log('display_state')
-console.log(trial.A1)
+  console.log('display_state')
+  console.log(trial.A1)
     
 			display_element.innerHTML = html;
 
@@ -237,18 +322,18 @@ console.log(trial.A1)
 
 			}, 2000); // show failure stimulus for e.g. 2000 then "..." (2000 ms piloting)
 
-console.log('after_response')
-console.log(trial.A1)
+  console.log('after_response')
+  console.log(trial.A1)
 
     };
 
     // function to end trial when it is time
     function end_trial() {
 
-// console.log('end_trial')
-// console.log(trial.A1)
-// console.log('end_trial outcome:')
-// console.log(trial.outcome)
+  // console.log('end_trial')
+    // console.log(trial.A1)
+  // console.log('end_trial outcome:')
+  // console.log(trial.outcome)
 
       // kill any remaining setTimeout handlers
       jsPsych.pluginAPI.clearAllTimeouts();

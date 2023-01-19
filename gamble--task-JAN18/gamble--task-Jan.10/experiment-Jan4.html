@@ -65,6 +65,7 @@ GAMBLES.forEach(function (gamble) {
 
   // Define side presentation.
   var left = jsPsych.randomization.sampleWithoutReplacement([true,false], 1)[0];
+  var top = jsPsych.randomization.sampleWithoutReplacement([true,false], 1)[0];
 
   // Define gambling trial.
   var trial = {
@@ -73,13 +74,15 @@ GAMBLES.forEach(function (gamble) {
     // Gamble trial data.
     pA1: gamble['pA1'],        // Gamble A, high value probability
     pA2: gamble['pA2'],        // Gamble A, low value probability
-    A1:  gamble['A1'],         // Gamble A, high value magnitude
-    A2:  gamble['A2'],         // Gamble A, low value magnitude
+    A1:  gamble['A1'],         // Mixed gamble, A1 is the win half
+    A2:  gamble['A2'],         // A2 is the 0/loss half
     pB1: gamble['pB1'],        // Gamble B, high value probability
     pB2: gamble['pB2'],        // Gamble B, low value probability
-    B1:  gamble['B1'],         // Gamble B, high value magnitude
+    B1:  gamble['B1'],         // certain result: 0/win
     B2:  gamble['B2'],         // Gamble B, low value magnitude
     left: left,                // Gamble A on left side
+    top: top, //top means the green is at top(Green will always be gain half of the mixed gamble)
+    Domain: gamble['Domain'],
 
     // Gamble trial metadata
     data: { ID: gamble['ID'], Domain: gamble['Domain'], Problem: gamble['Problem'] },
