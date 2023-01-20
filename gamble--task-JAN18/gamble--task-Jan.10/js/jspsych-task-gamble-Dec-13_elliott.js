@@ -64,6 +64,7 @@ jsPsych.plugins["task-gamble"] = (function() {
         key: null,
         key_press_num: null,
         accept: null,
+        realChoice: null
     };
 
     // define left and top condition, 1 is left green top, 2 for left green bottom, 3 for non-left green top, 4 for non-left, green bottom
@@ -296,14 +297,20 @@ jsPsych.plugins["task-gamble"] = (function() {
         response.choice = 1;
       }
 
+      var realChoice = null
+
       //choice 1 is gamble, 0 is not gamble
       if (response.choice == 1){
         var trialPayoff = FeG;
+        response.realChoice = "Choose to gamble";
 				trial.outcome = FeGnumeric;
       } else {
         var trialPayoff = FeN;
+        response.realChoice = "Choose not to gamble";
 				trial.outcome = FeNnumeric;
       }
+
+
 
 			// check what the choice was, flip a coin to get outcome if gamble chosen, display outcome
 	    var html = '';
@@ -318,9 +325,9 @@ jsPsych.plugins["task-gamble"] = (function() {
 				//add here whatever changes needed before the delay
 				jsPsych.pluginAPI.setTimeout(function() {
 					end_trial();//fill this place with function to call for object needed to appearafter thee  delay
-				}, 2000); 
+				}, 20); 
 
-			}, 2000); // show failure stimulus for e.g. 2000 then "..." (2000 ms piloting)
+			}, 20); // show failure stimulus for e.g. 2000 then "..." (2000 ms piloting)
 
   console.log('after_response')
   console.log(trial.A1)
@@ -337,16 +344,16 @@ jsPsych.plugins["task-gamble"] = (function() {
 
       // kill any remaining setTimeout handlers
       jsPsych.pluginAPI.clearAllTimeouts();
-
+      
       // gather the data to store for the trial
       var trial_data = {
-        "A1": trial.A1,
-        "A2": trial.A2,
-        "B1": trial.B1,
-        "left": trial.left,
-        "top": trial.top,
+        "Gamble1MixedWin": trial.A1,
+        "Gamble2MixedLossOr0": trial.A2,
+        "CertainAmount": trial.B1,
+        "mixedGambleOnLeft": trial.left,
+        "winGambleOnTop": trial.top,
         "button": response.key,
-        "choice": response.choice,
+        "choice": response.realChoice,
         "rt": response.rt,
         "outcome": trial.outcome
       };

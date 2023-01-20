@@ -14,7 +14,7 @@
   <script src="./js/jspsych-html-keyboard-response-shiyi-storeData.js"></script>
 
   <!-- Load task data -->
-  <script src="./json/gambles-1.json" type="text/javascript" ></script>
+  <script src="./json/gambleJan20.json" type="text/javascript" ></script>
 
   <!-- Load CSS styles -->
   <link href="./lib/jspsych-6.3.1/css/jspsych.css" rel="stylesheet" type="text/css"></link>
@@ -70,19 +70,14 @@ GAMBLES.forEach(function (gamble) {
   // Define gambling trial.
   var trial = {
     type: 'task-gamble',
-    post_trial_gap: 200,
+    // post_trial_gap: 2000,
     // Gamble trial data.
-    pA1: gamble['pA1'],        // Gamble A, high value probability
-    pA2: gamble['pA2'],        // Gamble A, low value probability
-    A1:  gamble['A1'],         // Mixed gamble, A1 is the win half
-    A2:  gamble['A2'],         // A2 is the 0/loss half
-    pB1: gamble['pB1'],        // Gamble B, high value probability
-    pB2: gamble['pB2'],        // Gamble B, low value probability
-    B1:  gamble['B1'],         // certain result: 0/win
-    B2:  gamble['B2'],         // Gamble B, low value magnitude
+    A1:  gamble['gamble1'],         // Mixed gamble, A1 is the win half
+    A2:  gamble['gamble2'],         // A2 is the 0/loss half
+    B1:  gamble['certain'],         // certain result: 0/win
     left: left,                // Gamble A on left side
     top: top, //top means the green is at top(Green will always be gain half of the mixed gamble)
-    Domain: gamble['Domain'],
+    Domain: gamble['domain'],
 
     // Gamble trial metadata
     data: { ID: gamble['ID'], Domain: gamble['Domain'], Problem: gamble['Problem'] },
