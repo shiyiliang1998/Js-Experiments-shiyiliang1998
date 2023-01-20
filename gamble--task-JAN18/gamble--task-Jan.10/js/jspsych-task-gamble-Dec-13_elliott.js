@@ -44,7 +44,7 @@ jsPsych.plugins["task-gamble"] = (function() {
         default: true,
         description: 'type of gamble: gain&loss vs 0, or gain&0 vs'
       },
-
+      // Domain 0 for gain only; 1 for mixed with loss
 
 
       
@@ -73,30 +73,32 @@ jsPsych.plugins["task-gamble"] = (function() {
     let c;
     if (a & b) {c = 1} else if (!a & b ) {c = 2} else if (a & !b) {c =3} else{c=4}
 
+
+
     switch(c) {
       case 1:
-        var L1 = ` <p>Win ${trial.A1} </p>
+        var L1 = ` <p>Gain ${trial.A1} </p>
         <br/><br/>
         <p> Lose ${trial.A2}  </p>`;
-        var R1 = ` <p>Win ${trial.B1}   </p>`;
+        var R1 = ` <p>Gain ${trial.B1}   </p>`;
         break;
       case 2:
-        var R1 = ` <p>Win ${trial.A1} </p>
+        var R1 = ` <p>Gain ${trial.A1} </p>
         <br/><br/>
         <p> Lose ${trial.A2}  </p>`;
-        var L1 = ` <p>Win ${trial.B1}   </p>`;
+        var L1 = ` <p>Gain ${trial.B1}   </p>`;
         break;
       case 3:
         var L1 = ` <p> Lose ${trial.A2}  </p> 
         <br/><br/>
-        <p>Win ${trial.A1} </p>        `;
-        var R1 = ` <p>Win ${trial.B1}   </p>`;
+        <p>Gain ${trial.A1} </p>        `;
+        var R1 = ` <p>Gain ${trial.B1}   </p>`;
         break;
       case 4:
         var R1 = `   <p> Lose ${trial.A2}  </p> 
         <br/><br/>
-        <p>Win ${trial.A1} </p>        `;
-        var L1 = ` <p>Win ${trial.B1}   </p>`;
+        <p>Gain ${trial.A1} </p>        `;
+        var L1 = ` <p>Gain ${trial.B1}   </p>`;
         break;  
     }
 
@@ -143,7 +145,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 						 <br>
 						 <br>
 						 <br>
-						 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
+						 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
 						 </div>
 				 
 				<div class='juyou'> <img src="./img/full.png" alt="sometext" />
@@ -151,7 +153,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 						<br>
 						<br>
 						<br>
-						<div class="leftrighttextBottom">Press "K" to select this gamble</div>
+						<div class="leftrighttextBottom">Press "H" to select this gamble</div>
 						</div>
 			</div>`
           break;            
@@ -169,7 +171,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 						 <br>
 						 <br>
 						 <br>
-						 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
+						 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
 						 </div>
 				 
 				<div class='juyou'> <img src="./img/top.png" alt="sometext" />
@@ -177,7 +179,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 						<br>
 						<br>
 						<br>
-						<div class="leftrighttextBottom">Press "K" to select this gamble</div>
+						<div class="leftrighttextBottom">Press "H" to select this gamble</div>
 						</div>
 			</div>`
          break;
@@ -194,7 +196,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 							 <br>
 							 <br>
 							 <br>
-							 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
+							 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
 							 </div>
 				 
 					<div class='juyou'> <img src="./img/full.png" alt="sometext" />
@@ -202,7 +204,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 								<br>
 								<br>
 								<br>
-								<div class="leftrighttextBottom">Press "K" to select this gamble</div>
+								<div class="leftrighttextBottom">Press "H" to select this gamble</div>
 							 </div>
 				</div>`
           break;
@@ -219,7 +221,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 							 <br>
 							 <br>
 							 <br>
-							 <div class="leftrighttextBottom">Press "F" to select this gamble</div>
+							 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
 							 </div>
 				 
 					<div class='juyou'> <img src="./img/bottom.png" alt="sometext" />
@@ -227,7 +229,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 								<br>
 								<br>
 								<br>
-								<div class="leftrighttextBottom">Press "K" to select this gamble</div>
+								<div class="leftrighttextBottom">Press "H" to select this gamble</div>
 							 </div>
 				</div>`
 
@@ -256,7 +258,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 			// Section 3: jsPsych Functions       //
 			// ---------------------------------- //
 
-			var valid_responses = ['f', 'k'];
+			var valid_responses = ['g', 'h'];
 			
 			// jspsych function to listen for responses
 			keyboardListener = jsPsych.pluginAPI.getKeyboardResponse({
@@ -287,47 +289,80 @@ jsPsych.plugins["task-gamble"] = (function() {
       }
 
       // Infer choice
-      if (trial.left && response.key=="f") {
+      if (trial.left && response.key=="g") {
         response.choice = 1;
-      } else if (trial.left && response.key=="k") {
+      } else if (trial.left && response.key=="h") {
         response.choice = 0;
-      } else if (response.key=="f") {
+      } else if (response.key=="g") {
         response.choice = 0;
       } else {
         response.choice = 1;
       }
-
-      var realChoice = null
-
-      //choice 1 is gamble, 0 is not gamble
-      if (response.choice == 1){
-        var trialPayoff = FeG;
-        response.realChoice = "Choose to gamble";
-				trial.outcome = FeGnumeric;
-      } else {
-        var trialPayoff = FeN;
-        response.realChoice = "Choose not to gamble";
-				trial.outcome = FeNnumeric;
-      }
-
 
 
 			// check what the choice was, flip a coin to get outcome if gamble chosen, display outcome
 	    var html = '';
       display_element.innerHTML = html;
 
+
+      //choice 1 is gamble, 0 is not gamble
+      if (response.choice == 1){
+        var trialPayoff = FeG;
+        response.realChoice = "Choose to gamble";
+				trial.outcome = FeGnumeric;
 			jsPsych.pluginAPI.setTimeout(function() {
 				html += `
-						<div class="info"> ${trialPayoff}
-						</div>`
+        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
+        <div class="feedback">   <span class="infoResult"> ${trialPayoff}</span></div>`
 				display_element.innerHTML = html;
 
 				//add here whatever changes needed before the delay
 				jsPsych.pluginAPI.setTimeout(function() {
 					end_trial();//fill this place with function to call for object needed to appearafter thee  delay
-				}, 20); 
+				}, 1000); //this is the time to display the gamble before end trial    ;end trial之前这个实际上是gamble result呈现的时间
 
-			}, 20); // show failure stimulus for e.g. 2000 then "..." (2000 ms piloting)
+			}, 1300); // this is the time ot wait before showing result这个是选择后呈现刺激前的等待时间
+
+      } else {
+        var trialPayoff = FeN;
+        response.realChoice = "Choose not to gamble";
+				trial.outcome = FeNnumeric;
+
+        jsPsych.pluginAPI.setTimeout(function() {
+
+          html += '<div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>';
+
+          // Add jsPsych end-trial trigger
+          html += '<div id="jspsych-html-button-response-stimulus"></div>';
+          html +=`
+                    
+            <div class='inCenter'> <img src="./img/full.png" alt="sometext" />
+                <div class="leftrighttext"><p>Gain ${trial.B1}   </p></div>
+                <br>
+                <br>
+                <br>
+
+          </div>`
+
+          display_element.innerHTML = html;
+  
+          //add here whatever changes needed before the delay
+          jsPsych.pluginAPI.setTimeout(function() {
+            end_trial();//fill this place with function to call for object needed to appearafter thee  delay
+          }, 2000); 
+  
+        }, 0); // show failure stimulus for e.g. 2000 then "..." (2000 ms piloting)
+      }
+
+
+   
+       
+
+
+
+
+
+
 
   console.log('after_response')
   console.log(trial.A1)
