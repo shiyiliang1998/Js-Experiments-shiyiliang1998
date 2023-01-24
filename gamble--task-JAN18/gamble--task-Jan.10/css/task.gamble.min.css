@@ -9,22 +9,30 @@
   color: #000000;
 }
 
-.feedback{
+#center {
 
-}
+  text-align: center;
+  
+  }
+
+.text {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: "----";
+  }
 
 .login,.infoResultLeft{
   position: absolute;
   Left: 50%;
   margin-top: 200px;
-  margin-left: 200px;
+  margin-left: 400px;
   font-size:40px;
 }
 .login,.infoResultRight{
   position: absolute;
   Right: 50%;
   margin-top: 200px;
-  margin-Right: 200px;
+  margin-Right: 400px;
   font-size:40px;
 }
 
@@ -85,7 +93,7 @@ a{				color: #000;
   position: absolute;
   left: 50%;
   margin-top: -300px;
-  margin-left: -700px;
+  margin-left: -550px;
   display: inline-block;
   padding: 1rem 1rem;
   vertical-align: middle;
@@ -95,7 +103,7 @@ a{				color: #000;
     position: absolute;
     right: 50%;
     margin-top: -300px;
-    margin-right: -700px;  display: inline-block;
+    margin-right: -550px;  display: inline-block;
     padding: 1rem 1rem;
     vertical-align: middle;
 }

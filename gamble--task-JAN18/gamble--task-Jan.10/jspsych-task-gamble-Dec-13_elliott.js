@@ -108,15 +108,19 @@ jsPsych.plugins["task-gamble"] = (function() {
     var winRoll = jsPsych.randomization.sampleWithoutReplacement([true,false], 1)[0];
     //feedback when choosing to gamble
     if (winRoll) {
-      var FeG = `<div class="text"> Gain ${trial.A1} </div>`;
+      var FeG = `<p> ${trial.A1} </P>`;
 			var FeGnumeric = trial.A1;
     } else {
-      var FeG =`<div class="text"> Lose ${trial.A2} </div>`;
+      var FeG =`<p> ${trial.A2} </P>`;
 			var FeGnumeric = trial.A2;
     }
     //feedback when choosing not to gamble
-    var FeN = `<div class="text"> Gain ${trial.B1} </div>`;
+    var FeN = `<p> ${trial.B1} </P>`;
     var FeNnumeric = trial.B1;
+
+
+  console.log('plugin 1')
+  console.log(trial.A1)
 
 
     // random picture position //
@@ -323,7 +327,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 			html += '</div>';
 
   console.log('settimeout')
-
+  console.log(trial.A1)
   display_state(html);
 			// display_state(html);
 
@@ -333,6 +337,8 @@ jsPsych.plugins["task-gamble"] = (function() {
     // Display HTML
     function display_state(html){
 
+  console.log('display_state')
+  console.log(trial.A1)
     
 			display_element.innerHTML = html;
 
@@ -384,55 +390,11 @@ jsPsych.plugins["task-gamble"] = (function() {
 			// check what the choice was, flip a coin to get outcome if gamble chosen, display outcome
 	    var html = '';
 
+      display_element.innerHTML = html;
 
-      if (response.choice == 1){
-      	
-      	switch(c) {
-          case 1: 
-          //mixed at left, use topgreen pic
-        html += `<div class='parent'>
-          <div class='juzuo'>
-        ${htmlLeftMixedUp}
-        </div> 
-        <div class='juyou'><div class="gamble-header"><h3>...</h3></div></div>   
-         </div>`
-      break;            
-          case 2:
-        html += `<div class='parent'>
-        <div class='juyou'> 
-        ${htmlRightMixedUp}
-        </div>
-				<div class='juyou'><div class="gamble-header"><h3>...</h3></div></div>
-         </div>`
-           break;  
-           case 3:
-          //mixed at left, bottom green 
-          html += `<div class='parent'>  
-          <div class='juzuo'>
-          ${htmlLeftMixedBottom}
-           </div>
-					<div class='juyou'><div class="gamble-header"><h3>...</h3></div></div>
-            </div>    `
-            break;  
-            case 4:       
-           //mixed at right, bottom green pic
-          html += `<div class='parent'>
-          <div class='juyou'> 
-          ${htmlRightMixedBottom}
-          </div>      
-					<div class='juyou'><div class="gamble-header"><h3>...</h3></div></div>
-           </div>`
-          break;  
-        }
-      	
-	      display_element.innerHTML = html;      	
-      }
 
       //choice 1 is gamble, 0 is not gamble
       if (response.choice == 1){
-
-				var html = '';
-
         var trialPayoff = FeG;
         response.realChoice = "Choose to gamble";
 				trial.outcome = FeGnumeric;
@@ -491,10 +453,9 @@ jsPsych.plugins["task-gamble"] = (function() {
 					end_trial();//fill this place with function to call for object needed to appearafter thee  delay
 				}, 1000); //this is the time to display the gamble before end trial    ;end trial之前这个实际上是gamble result呈现的时间
 
-			}, 1300); // this is the time to wait before showing result这个是选择后呈现刺激前的等待时间
+			}, 1300); // this is the time ot wait before showing result这个是选择后呈现刺激前的等待时间
 
       } else {
-      
         var trialPayoff = FeN;
         response.realChoice = "Choose not to gamble";
 				trial.outcome = FeNnumeric;
@@ -510,7 +471,7 @@ jsPsych.plugins["task-gamble"] = (function() {
           case 2:
         html += `        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div><div class='parent'>
         <div class='juzuo'>
-        ${htmlLeftFull} 
+        ${htmlLeftFull} /div>
         <div class='juyou'> </div> </div> ` 
            break;  
            case 3:
@@ -544,12 +505,27 @@ jsPsych.plugins["task-gamble"] = (function() {
       }
 
 
+   
+       
 
+
+
+
+
+
+
+  console.log('after_response')
+  console.log(trial.A1)
 
     };
 
     // function to end trial when it is time
     function end_trial() {
+
+  // console.log('end_trial')
+    // console.log(trial.A1)
+  // console.log('end_trial outcome:')
+  // console.log(trial.outcome)
 
       // kill any remaining setTimeout handlers
       jsPsych.pluginAPI.clearAllTimeouts();
