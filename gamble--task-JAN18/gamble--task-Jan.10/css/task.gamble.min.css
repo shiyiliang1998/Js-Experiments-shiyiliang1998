@@ -26,14 +26,14 @@
   Left: 50%;
   margin-top: 200px;
   margin-left: 400px;
-  font-size:40px;
+  font-size:35px;
 }
 .login,.infoResultRight{
   position: absolute;
   Right: 50%;
   margin-top: 200px;
   margin-Right: 400px;
-  font-size:40px;
+  font-size:35px;
 }
 
 

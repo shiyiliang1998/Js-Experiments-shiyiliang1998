@@ -448,7 +448,7 @@ jsPsych.plugins["task-gamble"] = (function() {
         <div class='juyou'> 
         <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
         <span class="infoResultRight"> ${trialPayoff}</span></div>
-        </div>   
+         
          </div>`
       break;            
           case 2:
@@ -458,7 +458,7 @@ jsPsych.plugins["task-gamble"] = (function() {
         </div>        <div class='juzuo'> 
         <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
         <span class="infoResultLeft"> ${trialPayoff}</span></div>
-        </div>   
+         
          </div>`
            break;  
            case 3:
@@ -469,7 +469,7 @@ jsPsych.plugins["task-gamble"] = (function() {
            </div>        <div class='juyou'> 
            <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
            <span class="infoResultRight"> ${trialPayoff}</span></div>
-           </div>   
+          
             </div>    `
             break;  
             case 4:       
@@ -489,7 +489,7 @@ jsPsych.plugins["task-gamble"] = (function() {
 				//add here whatever changes needed before the delay
 				jsPsych.pluginAPI.setTimeout(function() {
 					end_trial();//fill this place with function to call for object needed to appearafter thee  delay
-				}, 1000); //this is the time to display the gamble before end trial    ;end trial之前这个实际上是gamble result呈现的时间
+				}, 10000); //this is the time to display the gamble before end trial    ;end trial之前这个实际上是gamble result呈现的时间
 
 			}, 1300); // this is the time to wait before showing result这个是选择后呈现刺激前的等待时间
 
