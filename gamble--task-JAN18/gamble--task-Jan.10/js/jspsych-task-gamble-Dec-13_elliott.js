@@ -67,12 +67,11 @@ jsPsych.plugins["task-gamble"] = (function() {
         realChoice: null
     };
 
-    // define left and top condition, 1 is left green top, 2 for left green bottom, 3 for non-left green top, 4 for non-left, green bottom
+    // define left and top condition, 1 is left green top, 2 for non-left green top, 3 for left green bottom, 4 for non-left, green bottom
     var a = trial.left;
     var b = trial.top;
     let c;
     if (a & b) {c = 1} else if (!a & b ) {c = 2} else if (a & !b) {c =3} else{c=4}
-
 
 
     switch(c) {
@@ -128,6 +127,46 @@ jsPsych.plugins["task-gamble"] = (function() {
     
 		jsPsych.pluginAPI.setTimeout(function() {
 
+      window.htmlLeftMixedUp =` 
+						<img src="./img/top.png" alt="sometext" />
+						 <div class="leftrighttext">${L1}</div>
+						 <br>
+						 <br>
+						 <br>
+               `;
+      window.htmlRightFull = `
+	          <img src="./img/full.png" alt="sometext" />
+						<div class="leftrighttext">${R1}</div>
+						<br>
+						<br>
+						<br>`;
+      window.htmlLeftMixedBottom =` 
+             <img src="./img/bottom.png" alt="sometext" />
+             <div class="leftrighttext">${L1}</div>
+           <br>
+           <br>
+           <br>
+               `;
+      window.htmlLeftFull = `     
+      <img src="./img/full.png" alt="sometext" />
+      <div class="leftrighttext">${L1}</div>
+      <br>
+      <br>
+      <br>
+        `;
+      window.htmlRightMixedUp =` 
+      <img src="./img/top.png" alt="sometext" />
+      <div class="leftrighttext">${R1}</div>
+      <br>
+      <br>
+      <br>
+           `;
+     window.htmlRightMixedBottom = `
+     <img src="./img/bottom.png" alt="sometext" />
+     <div class="leftrighttext">${R1}</div>
+     <br>
+     <br>
+     <br>`;
 			var html = '';
       switch(c) {
         case 1: 
@@ -137,101 +176,150 @@ jsPsych.plugins["task-gamble"] = (function() {
 
 			// Add jsPsych end-trial trigger
 			html += '<div id="jspsych-html-button-response-stimulus"></div>';
-			html +=`
-			<div class='parent'>
-				<div class='juzuo'>
-						<img src="./img/top.png" alt="sometext" />
-						 <div class="leftrighttext">${L1}</div>
-						 <br>
-						 <br>
-						 <br>
-						 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
-						 </div>
+      html += `<div class='parent'>
+
+      <div class='juzuo'>
+      ${htmlLeftMixedUp}
+       <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+       </div>
+
+      <div class='juyou'> 
+      ${htmlRightFull}
+      <div class="leftrighttextBottom">Press "H" to select this gamble</div>
+			</div>      
+      </div>
+    `
+			// html +=`
+			// <div class='parent'>
+			// 	<div class='juzuo'>
+			// 			<img src="./img/top.png" alt="sometext" />
+			// 			 <div class="leftrighttext">${L1}</div>
+			// 			 <br>
+			// 			 <br>
+			// 			 <br>
+			// 			 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+			// 			 </div>
 				 
-				<div class='juyou'> <img src="./img/full.png" alt="sometext" />
-						<div class="leftrighttext">${R1}</div>
-						<br>
-						<br>
-						<br>
-						<div class="leftrighttextBottom">Press "H" to select this gamble</div>
-						</div>
-			</div>`
+			// 	<div class='juyou'> <img src="./img/full.png" alt="sometext" />
+			// 			<div class="leftrighttext">${R1}</div>
+			// 			<br>
+			// 			<br>
+			// 			<br>
+			// 			<div class="leftrighttextBottom">Press "H" to select this gamble</div>
+			// 			</div>
+			// </div>`
           break;            
-        
-        
+                
         case 2:
-          // mixed at left, bottom green pic
+          // mixed at right, top green pic
 			html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
 			html += '<div id="jspsych-html-button-response-stimulus"></div>';
-			html +=`
-			<div class='parent'>
-				<div class='juzuo'>
-						<img src="./img/full.png" alt="sometext" />
-						 <div class="leftrighttext">${L1}</div>
-						 <br>
-						 <br>
-						 <br>
-						 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
-						 </div>
+      html += `<div class='parent'>
+
+      <div class='juzuo'>
+      ${htmlLeftFull}
+       <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+       </div>
+
+      <div class='juyou'> 
+      ${htmlRightMixedUp}
+      <div class="leftrighttextBottom">Press "H" to select this gamble</div>
+			</div>      
+      </div>`
+			// html +=
+      // <div class='parent'>
+			// 	<div class='juzuo'>
+			// 			<img src="./img/full.png" alt="sometext" />
+			// 			 <div class="leftrighttext">${L1}</div>
+			// 			 <br>
+			// 			 <br>
+			// 			 <br>
+			// 			 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+			// 			 </div>
 				 
-				<div class='juyou'> <img src="./img/top.png" alt="sometext" />
-						<div class="leftrighttext">${R1}</div>
-						<br>
-						<br>
-						<br>
-						<div class="leftrighttextBottom">Press "H" to select this gamble</div>
-						</div>
-			</div>`
+			// 	<div class='juyou'> <img src="./img/top.png" alt="sometext" />
+			// 			<div class="leftrighttext">${R1}</div>
+			// 			<br>
+			// 			<br>
+			// 			<br>
+			// 			<div class="leftrighttextBottom">Press "H" to select this gamble</div>
+			// 			</div>
+			// </div>`
          break;
 
          case 3:
-        //mixed at right, top green pic
+        //mixed at left, bottom green 
 				html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
 				html += '<div id="jspsych-html-button-response-stimulus"></div>';
-				html +=`
-				<div class='parent'>
-					<div class='juzuo'>
-							<img src="./img/bottom.png" alt="sometext" />
-								 <div class="leftrighttext">${L1}</div>
-							 <br>
-							 <br>
-							 <br>
-							 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
-							 </div>
+        html += `<div class='parent'>
+
+        <div class='juzuo'>
+        ${htmlLeftMixedBottom}
+         <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+         </div>
+  
+        <div class='juyou'> 
+        ${htmlRightFull}
+        <div class="leftrighttextBottom">Press "H" to select this gamble</div>
+        </div>      
+        </div>`
+
+				// html +=`
+				// <div class='parent'>
+				// 	<div class='juzuo'>
+				// 			<img src="./img/bottom.png" alt="sometext" />
+				// 				 <div class="leftrighttext">${L1}</div>
+				// 			 <br>
+				// 			 <br>
+				// 			 <br>
+				// 			 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+				// 			 </div>
 				 
-					<div class='juyou'> <img src="./img/full.png" alt="sometext" />
-								<div class="leftrighttext">${R1}</div>
-								<br>
-								<br>
-								<br>
-								<div class="leftrighttextBottom">Press "H" to select this gamble</div>
-							 </div>
-				</div>`
+				// 	<div class='juyou'> <img src="./img/full.png" alt="sometext" />
+				// 				<div class="leftrighttext">${R1}</div>
+				// 				<br>
+				// 				<br>
+				// 				<br>
+				// 				<div class="leftrighttextBottom">Press "H" to select this gamble</div>
+				// 			 </div>
+				// </div>`
           break;
 
           case 4:       
          //mixed at right, bottom green pic
 				html += '<div class="gamble-header"><h3>Which gamble would you prefer?</h3></div>';
 				html += '<div id="jspsych-html-button-response-stimulus"></div>';
-				html +=`
-				<div class='parent'>
-					<div class='juzuo'>
-							<img src="./img/full.png" alt="sometext" />
-								 <div class="leftrighttext">${L1}</div>
-							 <br>
-							 <br>
-							 <br>
-							 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
-							 </div>
+        html += `<div class='parent'>
+        <div class='juzuo'>
+        ${htmlLeftFull}
+         <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+         </div>
+  
+        <div class='juyou'> 
+        ${htmlRightMixedBottom}
+        <div class="leftrighttextBottom">Press "H" to select this gamble</div>
+        </div>      
+        </div>`
+
+				// html +=`
+				// <div class='parent'>
+				// 	<div class='juzuo'>
+				// 			<img src="./img/full.png" alt="sometext" />
+				// 				 <div class="leftrighttext">${L1}</div>
+				// 			 <br>
+				// 			 <br>
+				// 			 <br>
+				// 			 <div class="leftrighttextBottom">Press "G" to select this gamble</div>
+				// 			 </div>
 				 
-					<div class='juyou'> <img src="./img/bottom.png" alt="sometext" />
-								<div class="leftrighttext">${R1}</div>
-								<br>
-								<br>
-								<br>
-								<div class="leftrighttextBottom">Press "H" to select this gamble</div>
-							 </div>
-				</div>`
+				// 	<div class='juyou'> <img src="./img/bottom.png" alt="sometext" />
+				// 				<div class="leftrighttext">${R1}</div>
+				// 				<br>
+				// 				<br>
+				// 				<br>
+				// 				<div class="leftrighttextBottom">Press "H" to select this gamble</div>
+				// 			 </div>
+				// </div>`
 
           break;  
       }
@@ -240,8 +328,8 @@ jsPsych.plugins["task-gamble"] = (function() {
 
   console.log('settimeout')
   console.log(trial.A1)
-
-			display_state(html);
+  display_state(html);
+			// display_state(html);
 
 		}, 0); // set to zero
 
@@ -299,9 +387,9 @@ jsPsych.plugins["task-gamble"] = (function() {
         response.choice = 1;
       }
 
-
 			// check what the choice was, flip a coin to get outcome if gamble chosen, display outcome
 	    var html = '';
+
       display_element.innerHTML = html;
 
 
@@ -311,9 +399,53 @@ jsPsych.plugins["task-gamble"] = (function() {
         response.realChoice = "Choose to gamble";
 				trial.outcome = FeGnumeric;
 			jsPsych.pluginAPI.setTimeout(function() {
-				html += `
+
+        switch(c) {
+          case 1: 
+          //mixed at left, use topgreen pic
+        html += `<div class='parent'>
+          <div class='juzuo'>
+        ${htmlLeftMixedUp}
+        </div> 
+        <div class='juyou'> 
         <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
-        <div class="feedback">   <span class="infoResult"> ${trialPayoff}</span></div>`
+        <span class="infoResultRight"> ${trialPayoff}</span></div>
+        </div>   
+         </div>`
+      break;            
+          case 2:
+        html += `<div class='parent'>
+        <div class='juyou'> 
+        ${htmlRightMixedUp}
+        </div>        <div class='juzuo'> 
+        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
+        <span class="infoResultLeft"> ${trialPayoff}</span></div>
+        </div>   
+         </div>`
+           break;  
+           case 3:
+          //mixed at left, bottom green 
+          html += `<div class='parent'>  
+          <div class='juzuo'>
+          ${htmlLeftMixedBottom}
+           </div>        <div class='juyou'> 
+           <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
+           <span class="infoResultRight"> ${trialPayoff}</span></div>
+           </div>   
+            </div>    `
+            break;  
+            case 4:       
+           //mixed at right, bottom green pic
+          html += `<div class='parent'>
+          <div class='juyou'> 
+          ${htmlRightMixedBottom}
+          </div>      
+          <div class='juzuo'> 
+          <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>
+          <span class="infoResultLeft"> ${trialPayoff}</span></div>
+           </div>`
+          break;  
+        }
 				display_element.innerHTML = html;
 
 				//add here whatever changes needed before the delay
@@ -328,21 +460,39 @@ jsPsych.plugins["task-gamble"] = (function() {
         response.realChoice = "Choose not to gamble";
 				trial.outcome = FeNnumeric;
 
-        jsPsych.pluginAPI.setTimeout(function() {
-
-          html += '<div class="gamble-header"><h3>Result of this trial is shown below:</h3></div>';
-
-          // Add jsPsych end-trial trigger
-          html += '<div id="jspsych-html-button-response-stimulus"></div>';
-          html +=`
-                    
-            <div class='inCenter'> <img src="./img/full.png" alt="sometext" />
-                <div class="leftrighttext"><p>Gain ${trial.B1}   </p></div>
-                <br>
-                <br>
-                <br>
-
+        jsPsych.pluginAPI.setTimeout(function() {        switch(c) {
+          case 1: 
+          //mixed at left, use topgreen pic
+        html += `<div class='parent'>
+        <div class='juyou'> 
+        ${htmlRightFull}
+        </div>      </div>`
+      break;            
+          case 2:
+        html += `<div class='parent'>
+        <div class='juzuo'>
+        ${htmlLeftFull} /div>
+        <div class='juyou'> </div> </div> ` 
+           break;  
+           case 3:
+          //mixed at left, bottom green 
+          html += `<div class='parent'>  
+          <div class='juzuo'> </div>    
+          <div class='juyou'> 
+          ${htmlRightFull}
+          </div>      
           </div>`
+            break;  
+            case 4:       
+           //mixed at right, bottom green pic
+          html += `<div class='parent'>
+          <div class='juzuo'>
+          ${htmlLeftFull}
+           </div>
+          <div class='juyou'>   </div>      
+          </div>`
+          break;  
+        }
 
           display_element.innerHTML = html;
   

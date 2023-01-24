@@ -13,10 +13,21 @@
 
 }
 
-.login,.infoResult{
-
+.login,.infoResultLeft{
+  position: absolute;
+  Left: 50%;
+  margin-top: 200px;
+  margin-left: 200px;
   font-size:40px;
 }
+.login,.infoResultRight{
+  position: absolute;
+  Right: 50%;
+  margin-top: 200px;
+  margin-Right: 200px;
+  font-size:40px;
+}
+
 
 .resultText{
   font-size:30px;
@@ -71,18 +82,20 @@ a{				color: #000;
 }
 
 .juzuo {
-  position: relative;
+  position: absolute;
   left: 50%;
-  margin-left: -960px;
+  margin-top: -300px;
+  margin-left: -700px;
   display: inline-block;
   padding: 1rem 1rem;
   vertical-align: middle;
 }
 
 .juyou {
-    position: relative;
-    left: 50%;
-    margin-right: -960px;  display: inline-block;
+    position: absolute;
+    right: 50%;
+    margin-top: -300px;
+    margin-right: -700px;  display: inline-block;
     padding: 1rem 1rem;
     vertical-align: middle;
 }
@@ -108,13 +121,6 @@ a{				color: #000;
   left: 50%;
   transform: translate(-50%, -50%);
 }
-
-
-
-
-
-
-
 
 
 
