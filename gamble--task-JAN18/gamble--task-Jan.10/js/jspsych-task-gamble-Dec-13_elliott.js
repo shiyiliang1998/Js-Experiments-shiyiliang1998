@@ -463,20 +463,20 @@ jsPsych.plugins["task-gamble"] = (function() {
         jsPsych.pluginAPI.setTimeout(function() {        switch(c) {
           case 1: 
           //mixed at left, use topgreen pic
-        html += `<div class='parent'>
+        html += `        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div><div class='parent'>
         <div class='juyou'> 
         ${htmlRightFull}
         </div>      </div>`
       break;            
           case 2:
-        html += `<div class='parent'>
+        html += `        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div><div class='parent'>
         <div class='juzuo'>
         ${htmlLeftFull} /div>
         <div class='juyou'> </div> </div> ` 
            break;  
            case 3:
           //mixed at left, bottom green 
-          html += `<div class='parent'>  
+          html += `        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div><div class='parent'>  
           <div class='juzuo'> </div>    
           <div class='juyou'> 
           ${htmlRightFull}
@@ -485,7 +485,7 @@ jsPsych.plugins["task-gamble"] = (function() {
             break;  
             case 4:       
            //mixed at right, bottom green pic
-          html += `<div class='parent'>
+          html += `        <div class="gamble-header"><h3>Result of this trial is shown below:</h3></div><div class='parent'>
           <div class='juzuo'>
           ${htmlLeftFull}
            </div>
