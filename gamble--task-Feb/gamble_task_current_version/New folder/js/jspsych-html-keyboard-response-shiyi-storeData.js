@@ -9,12 +9,12 @@
  **/
 
 
-jsPsych.plugins["html-keyboard-response"] = (function() {
+jsPsych.plugins["lmdlab-html-keyboard-response"] = (function() {
 
   var plugin = {};
 
   plugin.info = {
-    name: 'html-keyboard-response',
+    name: 'lmdlab-html-keyboard-response',
     description: '',
     parameters: {
       stimulus: {

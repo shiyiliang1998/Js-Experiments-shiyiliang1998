@@ -45,7 +45,11 @@ function verify_unload(e){
 // 	button_label_next: "Next"
 //   }
   
-  
+var gamble_final = [];
+
+var gamble_final = {
+  timeline: []
+  };
   
   //------------------------------------//
   // Section 2: Prepare Gambles
@@ -80,7 +84,7 @@ function verify_unload(e){
 	};
   
 	// Store trial.
-	trials.push(trial);
+	gamble_final.timeline.push(trial);
   
   });
   
@@ -110,13 +114,8 @@ function verify_unload(e){
 	  trial_duration: 2000,
 	};
   
-  
-  var gamble_final = [];
+gamble_final.timeline.push(trialResult)  
 
-  var gamble_final = {
-	timeline: [trials, trialResult]
-	};
-  
 
 
 
